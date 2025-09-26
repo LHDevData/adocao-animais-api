@@ -1,14 +1,19 @@
 from flask import Flask, request, jsonify
-from models import db, Animal
+from flask_cors import CORS
+from models import db, Animal # Mova esta importação para cima
 
-# Inicializa a aplicação Flask
+# Inicializa a aplicação Flask (A PRIMEIRA E ÚNICA VEZ)
 app = Flask(__name__)
+CORS(app) # Garante que o CORS está habilitado para esta instância
 
 # --- Bloco de configuração do banco de dados ---
 @app.before_request
 def before_request():
     # Conecta ao banco de dados antes de cada requisição
     db.connect()
+
+# ... (restante do código) ...
+# REMOVA a linha extra 'app = Flask(__name__)' que estava duplicada.
 
 @app.after_request
 def after_request(response):
